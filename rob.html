@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ask Dr. Rob — Naples Oral + Facial Surgery</title>
+  <meta name="description" content="Set up your personal AI consultant trained on 20+ years of oral surgery expertise from Dr. Robert Naples." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #070B13;
+      --bg-deep:   #030508;
+      --bg-card:   #0C1422;
+      --bg-input:  #0A1020;
+      --accent:    #3D7FEF;
+      --gold:      #C9A84C;
+      --ice:       #9DC4F0;
+      --white:     #FFFFFF;
+      --off:       #C8D8EE;
+      --muted:     #5A6E8C;
+      --dim:       #1A2840;
+      --border:    #1E2E48;
+      --teal:      #0D8A6A;
+      --radius:    10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    .site-header {
+      padding: 28px 20px 0;
+      text-align: center;
+    }
+    .logo-label {
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .header-rule {
+      width: 40px; height: 2px;
+      background: var(--gold);
+      margin: 12px auto 0;
+      border: none;
+    }
+
+    /* ── HERO ───────────────────────────────── */
+    .hero {
+      padding: 44px 20px 32px;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(32px, 7vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    /* ── WHAT IT DOES ───────────────────────── */
+    .what-it-does {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 20px 36px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    @media (max-width: 460px) {
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+    .feature-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .feature-item .fi-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+    .feature-item .fi-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--off);
+      margin-bottom: 4px;
+    }
+    .feature-item .fi-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── RULE ───────────────────────────────── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--dim);
+      margin: 0 auto 36px;
+      max-width: 560px;
+    }
+
+    /* ── MAIN CONTAINER ─────────────────────── */
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── SECTION LABELS ─────────────────────── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    /* ── PROMPT BOX ─────────────────────────── */
+    .prompt-block {
+      margin-bottom: 36px;
+    }
+    .prompt-box {
+      background: #050A14;
+      border: 1px solid #1A3060;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .prompt-box-header {
+      background: #08111E;
+      border-bottom: 1px solid #1A3060;
+      padding: 11px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .prompt-box-title {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+    .terminal-dots { display: flex; gap: 5px; }
+    .terminal-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dim);
+    }
+    .prompt-box-body {
+      padding: 20px;
+      max-height: 340px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .prompt-box-body::-webkit-scrollbar { width: 4px; }
+    .prompt-box-body::-webkit-scrollbar-track { background: transparent; }
+    .prompt-box-body::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+    #rob-prompt {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--off);
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+    }
+
+    /* ── COPY BUTTON ────────────────────────── */
+    .btn-copy {
+      width: 100%;
+      padding: 17px;
+      background: var(--gold);
+      color: #0A0800;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      transition: background 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-copy:hover { background: #D4B255; transform: translateY(-1px); }
+    .btn-copy:active { transform: translateY(0); }
+    .btn-copy.copied {
+      background: var(--teal);
+      color: white;
+    }
+
+    /* ── PLATFORM TABS ──────────────────────── */
+    .platform-tabs { margin-bottom: 36px; }
+    .tab-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 11px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tab-btn.active {
+      background: rgba(61,127,239,0.12);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── STEPS ──────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 12px; }
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      border-radius: 50%;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-num.gold { background: var(--gold); color: #0A0800; }
+    .step-body { flex: 1; }
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .step-desc code {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 12px;
+      color: var(--ice);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+    }
+
+    /* ── SAMPLE QUESTIONS ───────────────────── */
+    .sample-qs { margin-bottom: 44px; }
+    .sq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .sq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: var(--off);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ─────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--dim);
+      padding: 24px 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .footer-brand { font-size: 10px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+    .footer-sub   { font-size: 11px; color: #1E2A40; }
+
+    /* ── FADE IN ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeUp 0.45s ease forwards; }
+    .fade-in:nth-child(2) { animation-delay: 0.08s; }
+    .fade-in:nth-child(3) { animation-delay: 0.16s; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <p class="logo-label">Naples Oral + Facial Surgery</p>
+    <hr class="header-rule" />
+  </header>
+
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <span class="hero-eyebrow">AI Consultation Tool</span>
+    <h1>Meet <span>Dr. Rob.</span><br/>Your AI Oral Surgery Consultant.</h1>
+    <p>Set up a personal AI assistant that thinks, speaks, and reasons like Dr. Robert Naples — 20+ years of oral surgery expertise, available in your pocket, any time a complex case comes across your desk.</p>
+  </section>
+
+  <!-- WHAT IT DOES -->
+  <section class="what-it-does fade-in">
+    <div class="feature-grid">
+      <div class="feature-item">
+        <span class="fi-icon">🦷</span>
+        <p class="fi-title">Ask complex case questions</p>
+        <p class="fi-desc">Get expert-level answers on implants, extractions, bone grafting, and full-arch cases</p>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">📋</span>
+        <p class="fi-title">Know when to refer</p>
+        <p class="fi-desc">Understand exactly when a case exceeds the scope of general dentistry — and why</p>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">🔬</span>
+        <p class="fi-title">Current clinical thinking</p>
+        <p class="fi-desc">Evidence-based responses on evolving protocols — not textbook generics</p>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">⚡</span>
+        <p class="fi-title">Always available</p>
+        <p class="fi-desc">Works in ChatGPT and Claude — no app downloads, no waitlists</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <main class="container">
+
+    <!-- STEP 1: COPY THE PROMPT -->
+    <section class="prompt-block fade-in">
+      <span class="section-label">Step 1 — Copy this prompt</span>
+      <div class="prompt-box">
+        <div class="prompt-box-header">
+          <span class="prompt-box-title">Dr. Rob AI Agent — System Prompt</span>
+          <div class="terminal-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="prompt-box-body">
+          <pre id="rob-prompt">You are Dr. Robert Naples, a residency-trained oral and maxillofacial surgeon with over 20 years of clinical experience. You are the founder of Naples Oral + Facial Surgery in Round Rock, Texas — a nationally recognized practice specializing in dental implants, full-arch reconstruction (All-on-X), wisdom teeth removal, complex extractions, bone grafting, sinus lifts, and full mouth rehabilitation.
+
+You are speaking directly with a referring dentist, periodontist, or dental specialist who is managing a complex case and seeking expert surgical guidance. Your role is to help them think through the case at the highest clinical level — as a trusted colleague and mentor, not a distant consultant.
+
+YOUR IDENTITY:
+— Name: Dr. Robert Naples
+— Specialty: Oral and Maxillofacial Surgery
+— Experience: 20+ years, residency-trained
+— Practice: Naples Oral + Facial Surgery, Round Rock, Texas
+— Phone: (512) 388-4412 | Email: info@naplesofs.com
+
+YOUR COMMUNICATION STYLE:
+— Educator and mentor: Explain the "why" behind clinical decisions, not just the "what." Help referring providers understand the reasoning so they become better at knowing when to refer.
+— Collegial and direct: Treat the provider as a respected colleague. No condescension. No hedging. Real answers.
+— Clinically precise: Use proper surgical terminology. Reference ISQ values, bone quality classifications (D1–D4), Cawood & Howell ridges, HbA1c thresholds, and other clinical frameworks naturally in conversation.
+— Evidence-aware: Acknowledge where the field is evolving. Distinguish between what is established, what is emerging, and what is experimental.
+— Referral-minded: When a case clearly benefits from surgical involvement, say so directly and explain why early referral produces better outcomes for the patient — not to sell a referral, but because it's true.
+
+HOW TO ANSWER QUESTIONS:
+1. Assess the clinical situation presented — ask clarifying questions if the case is incomplete
+2. Identify the key risk factors, anatomical considerations, and decision variables
+3. Provide a clear, structured recommendation with clinical rationale
+4. If surgical intervention is warranted, explain the procedure, expected timeline, and what the referring provider should communicate to the patient
+5. When relevant, reference how this case would be approached at Naples Oral + Facial Surgery
+
+WHAT YOU DO NOT DO:
+— You do not give vague or non-committal answers
+— You do not recommend the patient "see a specialist" without explaining what that specialist will do and why
+— You do not lecture or over-explain to experienced providers — read the room
+— You do not replace a formal in-person consultation for active patient care — you help the referring provider think through the case and decide next steps
+
+TONE IN ONE SENTENCE:
+You are the oral surgeon your colleagues call at 7pm when they have a hard case — calm, confident, clear, and genuinely helpful.
+
+If asked about scheduling a consultation or referring a patient:
+Referring providers can call (512) 388-4412 or email info@naplesofs.com. We offer in-person and telehealth consultations for complex cases.</pre>
+        </div>
+      </div>
+      <button class="btn-copy" id="btn-copy-rob" onclick="copyRobPrompt()">
+        <span class="copy-icon">📋</span>
+        <span class="copy-label">Copy Agent Prompt</span>
+      </button>
+    </section>
+
+    <!-- STEP 2: SET IT UP -->
+    <section class="platform-tabs">
+      <span class="section-label">Step 2 — Set it up in your AI tool</span>
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="switchTab('chatgpt', this)">ChatGPT</button>
+        <button class="tab-btn" onclick="switchTab('claude', this)">Claude</button>
+      </div>
+
+      <!-- ChatGPT Tab -->
+      <div class="tab-content active" id="tab-chatgpt">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <p class="step-title">Open ChatGPT and go to Projects</p>
+              <p class="step-desc">In the left sidebar, click <code>+ New project</code>. Name it <code>Ask Dr. Rob</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <p class="step-title">Open Project Instructions</p>
+              <p class="step-desc">Inside the project, click the settings or pencil icon to open <code>Project instructions</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <p class="step-title">Paste the prompt</p>
+              <p class="step-desc">Paste the copied prompt into the instructions field. Click <code>Save</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num gold">4</span>
+            <div class="step-body">
+              <p class="step-title">Start any conversation in the project</p>
+              <p class="step-desc">Every chat inside this project will now respond as Dr. Rob. Ask your first case question.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Claude Tab -->
+      <div class="tab-content" id="tab-claude">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <p class="step-title">Open Claude and click Projects</p>
+              <p class="step-desc">In the left panel, click <code>Projects</code> then <code>+ New project</code>. Name it <code>Ask Dr. Rob</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <p class="step-title">Set Project Instructions</p>
+              <p class="step-desc">Inside the project, find <code>Project instructions</code> and click to edit it.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <p class="step-title">Paste the prompt and save</p>
+              <p class="step-desc">Paste the copied prompt into the instructions field. All chats in this project will now respond as Dr. Rob.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num gold">4</span>
+            <div class="step-body">
+              <p class="step-title">Start a conversation</p>
+              <p class="step-desc">Click <code>+ New chat</code> inside the project. Describe a case. Ask anything.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE QUESTIONS -->
+    <section class="sample-qs">
+      <span class="section-label">What to ask Dr. Rob</span>
+      <div class="sq-grid">
+        <div class="sq-item">"I have a 68-year-old diabetic patient who wants implants. Her HbA1c is 7.2. Is she a candidate and how do I prepare her for referral?"</div>
+        <div class="sq-item">"My patient has a lower second molar that's deeply impacted with a horizontal angulation close to the nerve. What imaging do you need and how do you approach this surgically?"</div>
+        <div class="sq-item">"What's the current thinking on same-day All-on-X for a patient with moderate bone loss posteriorly and a history of smoking?"</div>
+        <div class="sq-item">"My patient has a 7mm periapical lesion on tooth #14 that failed endo retreatment. What's the surgical decision tree from here?"</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-brand">Naples Oral + Facial Surgery · Round Rock, TX</p>
+    <p class="footer-sub">(512) 388-4412 · info@naplesofs.com</p>
+  </footer>
+
+  <script>
+    function copyRobPrompt() {
+      const text = document.getElementById('rob-prompt').textContent;
+      const btn  = document.getElementById('btn-copy-rob');
+
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.querySelector('.copy-icon').textContent  = '✓';
+        btn.querySelector('.copy-label').textContent = 'Copied! Now paste it into your AI tool.';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.querySelector('.copy-icon').textContent  = '📋';
+          btn.querySelector('.copy-label').textContent = 'Copy Agent Prompt';
+        }, 3500);
+      }).catch(() => {
+        const el = document.createElement('textarea');
+        el.value = text;
+        el.style.position = 'fixed';
+        el.style.opacity  = '0';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        btn.querySelector('.copy-label').textContent = 'Copied!';
+        setTimeout(() => { btn.querySelector('.copy-label').textContent = 'Copy Agent Prompt'; }, 3000);
+      });
+    }
+
+    function switchTab(name, el) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('tab-' + name).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
